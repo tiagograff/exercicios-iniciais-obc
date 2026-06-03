@@ -1,8 +1,10 @@
 //divs e sections
 const sectionLineupForm = document.querySelector(".lineupForm");
-const playerForm = document.querySelector(".playerInfos")
+const playerForm = document.querySelector(".playerInfos");
+const sectionLineup = document.querySelector('.teamLineup');
+const sectionDeletePlayer = document.querySelector('.deletePlayerForm')
 //listas
-const players = []
+const players = [];
 const playersPositionsList = [
   "Atacante",
   "Zagueiro",
@@ -11,33 +13,55 @@ const playersPositionsList = [
   "Meio-Campo",
 ];
 //botoes
-const toScalePlayer = document.getElementById('submitPlayer')
+const toScalePlayer = document.getElementById("submitPlayer");
+const toDeletePlayer = document.getElementById('deletePlayer')
+const confirmDeletePlayer = document.getElementById('deletePlayerId')
 //funcionalidades
 const cleanForm = () => {
-  const inputs = document.querySelectorAll('.playerInfos input')
-  inputs.forEach(input => input.value = '')
-  inputs.forEach(input => input.checked = false)
+  const inputs = document.querySelectorAll(".playerInfos input");
+  inputs.forEach((input) => (input.value = ""));
+  inputs.forEach((input) => (input.checked = false));
+};
+
+const disableButton = (button) => {
+  button.disabled = true
+}
+
+const findPlayersByNumber = (number) => {
+  return players.find((player) => player.number === number)
+}
+
+const displayPlayers = () => {
+  sectionLineup.innerHTML = ''
+  const titleLineup = document.createElement('h2')
+  titleLineup.textContent = 'Jogadores Escalados:'
+  sectionLineup.append(breakLine(), titleLineup)
+  players.forEach((player) => {
+    const playerInfo = document.createElement('p')
+    playerInfo.textContent = `Nome: ${player.name} \nNúmero: ${player.number} \nPosição: ${player.position}`
+    sectionLineup.append(playerInfo)
+  })
 }
 //criando elementos
 const breakLine = () => {
-  return document.createElement('br')
-}
+  return document.createElement("br");
+};
 
 const makeButton = (type, id, text) => {
-  const newButton = document.createElement('button')
-  newButton.type = type
-  newButton.id = id
-  newButton.textContent = text
-  newButton.style.width = '200px'
+  const newButton = document.createElement("button");
+  newButton.type = type;
+  newButton.id = id;
+  newButton.textContent = text;
+  newButton.style.width = "200px";
 
-  return newButton
-}
+  return newButton;
+};
 
 const makeInput = (inputType, inputName) => {
   const input = document.createElement("input");
   input.type = inputType;
   input.name = inputName;
-  
+
   return input;
 };
 
@@ -66,50 +90,82 @@ const inputRadio = (arr, nameInputRadio) => {
 };
 
 function makeForm() {
-  // campos do form
-  const newPlayerName = makeInput('text', 'playerName')
-  newPlayerName.style.width = '200px'
-  const newPlayerNumber = makeInput('number','shirtNumber')
-  newPlayerNumber.style.width = '200px'
-  const newPlayerPosition= inputRadio(playersPositionsList, "positionPlayer");
+  //campos do form
+  const newPlayerName = makeInput("text", "playerName");
+  newPlayerName.style.width = "200px";
+  const newPlayerNumber = makeInput("number", "shirtNumber");
+  newPlayerNumber.style.width = "200px";
+  const newPlayerPosition = inputRadio(playersPositionsList, "positionPlayer");
 
-  // estilizacao dos campos do form
-  playerForm.style.marginTop = '30px'
-  playerForm.style.display = 'flex'
-  playerForm.style.flexDirection = 'column'
+  //estilizacao dos campos do form
+  playerForm.style.marginTop = "30px";
+  playerForm.style.display = "flex";
+  playerForm.style.flexDirection = "column";
 
-  // adicionando campos no form
-  playerForm.append(makeLabel('nome','Nome do Jogador: '),newPlayerName, breakLine(),
-  makeLabel('shirtName', 'Número da Camisa'), newPlayerNumber, breakLine(),
-  makeLabel('positionPlayer','Posição do Jogador:'), newPlayerPosition);
+  //adicionando campos no form
+  playerForm.append(
+    makeLabel("nome", "Nome do Jogador: "),
+    newPlayerName,
+    breakLine(),
+    makeLabel("shirtName", "Número da Camisa"),
+    newPlayerNumber,
+    breakLine(),
+    makeLabel("positionPlayer", "Posição do Jogador:"),
+    newPlayerPosition,
+  );
 
-  // botão de salvar info
-  const saveFormPlayer = makeButton('submit','saveFormPlayer','Salvar Informações')
-  saveFormPlayer.style.marginTop = '30px'
-  playerForm.append(saveFormPlayer)
+  //botão de salvar info
+  const saveFormPlayer = makeButton(
+    "submit",
+    "saveFormPlayer",
+    "Salvar Informações",
+  );
+  saveFormPlayer.style.marginTop = "30px";
+  playerForm.append(saveFormPlayer);
 
-  saveFormPlayer.addEventListener("click", () =>{
-    event.preventDefault()  
-    const playerPosition = document.querySelector('input[name="positionPlayer"]:checked')
+  saveFormPlayer.addEventListener("click", (event) => {
+    event.preventDefault();
+    const playerPosition = document.querySelector(
+      'input[name="positionPlayer"]:checked',
+    );
     const newPlayer = {
       name: newPlayerName.value,
       number: newPlayerNumber.value,
-      position: playerPosition.value
+      position: playerPosition.value,
+    };
+    if (confirm("Deseja salvar estas informações?")) {
+      players.push(newPlayer);
+      cleanForm();
+      displayPlayers()
+      players.length <= 0 ? disableButton(toDeletePlayer): toDeletePlayer.disabled = false
     }
-    if(confirm('Deseja salvar estas informações?')){
-      players.push(newPlayer)
-      cleanForm()
-    } else {
-      alert('Informações não salvas!')
+      else{
+      alert("Informações não salvas!");
     }
-
-})
-
+  });
   return playerForm;
 }
 
 //botoes
 toScalePlayer.addEventListener("click", () => {
-  sectionLineupForm.append(makeForm());
-  toScalePlayer.disabled = "true";
+    sectionLineupForm.append(makeForm())
+    disableButton(toScalePlayer)
 });
+
+toDeletePlayer.addEventListener('click', (event) => {
+  event.preventDefault()
+  sectionDeletePlayer.hidden = false;
+})
+
+confirmDeletePlayer.addEventListener('click', (event) => {
+  event.preventDefault()
+  const deletedPlayerNumber = document.getElementById('deletedPlayer').value
+  const playerToDelete = findPlayersByNumber(deletedPlayerNumber)
+  if(!playerToDelete){
+    alert('Jogador não encontrado!')
+  }else{
+    confirm(`Deseja remover o jogador ${playerToDelete.name} da escalação?`) ? players.splice(players.indexOf(playerToDelete),1) : alert('Jogador não removido!')
+    displayPlayers()
+    sectionDeletePlayer.hidden = true;
+  }
+})

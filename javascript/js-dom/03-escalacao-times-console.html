@@ -13,7 +13,13 @@
         <button type="submit" id="submitPlayer">
           Escalar Jogador
         </button>
-        <button type="button" id="deletePlayer" disabled>Remover Jogador</button>
+        <button type="button" id="deletePlayer" disabled>Remover Jogador da Escalação</button>
+        <form class="deletePlayerForm" hidden>
+          <br>
+          <label for="deletedPlayer">Qual é o número do jogador que deseja remover?</label>
+          <input type="number" name="deletedPlayer" id="deletedPlayer" min="1" max="99">
+          <button type="submit" id="deletePlayerId">Confirmar Remoção</button>
+        </form>
       </section>
       <form class="lineupForm">
         <section class="playerInfos"></section>
