@@ -8,27 +8,35 @@
 <body>
     <section class="introduction" style="display: flex; flex-direction: column; gap: 10px;">
         <h1>Cadastro de Devs:</h1>
-        <label for="devName">Nome do Desenvolvedor:</label>
-        <input type="text" name="devName" id="devName" style="width: 200px;">
-        <button type="submit" style="width: 150px;">Criar Formulário</button>
+        <form class="devFormCreate" style="display: flex; flex-direction: column; gap: 10px">
+            <label for="devName">Nome do Desenvolvedor:</label>
+            <input type="text" name="devName" id="devName" style="width: 200px;">
+            <button id="createFormBtn" type="button" style="width: 150px;">Criar Formulário</button>
+        </form>
     </section>
-    <form hidden style="margin-top: 30px;">
+    <form class="devFormInfos" hidden style="margin-top: 30px;">
         <hr style="width: 400px; text-align: left; margin-left: 0;">
-        <h2>Informações do Dev:</h2>
-        <label for="techsDev">Tecnologia:</label>
+        <h2 class="subtitle">Informações do Dev:</h2>
+        <fieldset style="width: max-content; margin-top: 15px;">
+            <legend>Tecnologia:</legend>
+            <input type="text" id="techsDev" name="techsDev" required>
+        </fieldset>
+        <fieldset style="width: max-content; margin-top: 15px;">
+            <legend style="margin-top: 10px;">Tempo de Experiência:</legend>
+            <input type="radio" name="xpDev" id="xpDevOp1" value="0-2 Anos" required>
+            <label for="xpDevOp1">De 0 até 2 anos</label>   
+            <input type="radio" name="xpDev" id="xpDevOp2" value="3-4 Anos">
+            <label for="xpDevOp2">De 3 até 4 anos</label>
+            <input type="radio" name="xpDev" id="xpDevOp3" value="5+ Anos">
+            <label for="xpDevOp3">5 ou mais anos</label>    
+        </fieldset>
         <br>
-        <input type="text" id="techsDev" name="techsDev">
-        <legend for="xpDev" style="margin-top: 10px;">Tempo de Experiência:</legend>
-        <input type="radio" name="xpDev" id="xpDevOp1" value="0-2 Anos">
-        <label for="xpDevOp1">De 0 até 2 anos</label>
-        <input type="radio" name="xpDev" id="xpDevOp2" value="3-4 Anos">
-        <label for="xpDevOp2" value="3-4 Anos">De 3 até 4 anos</label>
-        <input type="radio" name="xpDev" id="xpDevOp3" value="5+ Anos">
-        <label for="xpDevOp3" value="5+ Anos">5 ou mais anos</label>
+        <button id="saveInfosBtn" type="button" style="width: 150px; margin-top: 10px">Salvar</button>
         <hr style="width: 400px; text-align: left; margin: 30px 0;">
     </form>
     <section class="devInformations">
 
     </section>
+    <script src="./04-cadastro-dev.js"></script>
 </body>
 </html>
