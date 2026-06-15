@@ -1,11 +1,14 @@
-//botoes
-const formBtn = document.getElementById("createFormBtn");
-const renderBtn = document.getElementById("renderDevsBtn");
 //elementos
 const sectionDevs = document.querySelector(".devInformations");
-const renderArea = document.getElementById("renderArea");
+const form = document.querySelector(".devFormInfos");
+const inputName = document.getElementById("devName");
+//botoes
+const createFormBtn = document.getElementById("createFormBtn");
+const saveDevInfoBtn = document.getElementById("saveInfosBtn");
 //listas
 const devsList = [];
+//variavel
+let currentDev = null;
 
 //funcionalidades
 const cleanForm = () => {
@@ -18,76 +21,105 @@ const cleanForm = () => {
     .forEach((input) => (input.checked = false));
 };
 
+const createNewDev = () => {
+  const devName = inputName.value;
+
+  if (devName.trim() === "") {
+    alert("Digite o nome do dev para criar o form");
+    return;
+  }
+
+  currentDev = {
+    name: devName,
+    experiences: [],
+  };
+
+  devsList.push(currentDev);
+};
+
 const createRenderDevsBtn = () => {
   const renderBtn = document.createElement("button");
+
   renderBtn.id = "renderDevsBtn";
   renderBtn.innerText = "Mostrar Devs Cadastrados";
   renderBtn.style.maxWidth = "max-content";
+
+  renderBtn.addEventListener("click", renderDevs);
+
   sectionDevs.appendChild(renderBtn);
+};
 
-  //evento para o botao
-renderBtn.addEventListener("click", (ev) => {
-  ev.preventDefault();
-  renderArea.replaceChildren();
+const finishCurrentDev = () => {
+  currentDev = null;
 
-  const renderList = document.createElement("ul");
+  inputName.value = "";
+
+  createFormBtn.disabled = false;
+
+  form.hidden = true;
+};
+
+//funcoes
+const createForm = (devName) => {
+  const subtitle = document.querySelector(".subtitle");
+  subtitle.innerText = `Informações de ${devName}`;
+
+  form.hidden = false;
+  createFormBtn.disabled = true;
+};
+
+const saveInfosDev = (dev) => {
+  const techYearsXp = document.querySelector('input[name="xpDev"]:checked');
+  const devInformations = document.getElementById("techsDev");
+
+  if (form.checkVisibility()) {
+    dev.experiences.push({
+      tech: devInformations.value,
+      experience: techYearsXp.value,
+    });
+    cleanForm();
+    finishCurrentDev();
+  } else {
+    alert("Preencha o formuláro corretamente");
+  }
+  if (!sectionDevs.querySelector("#renderDevsBtn")) {
+    createRenderDevsBtn();
+  }
+  console.log(devsList)
+};
+
+const renderDevs = () => {
+  let renderList = document.getElementById("renderList");
+
+  if (!renderList) {
+    renderList = document.createElement("ul");
+    renderList.id = "renderList";
+    sectionDevs.appendChild(renderList);
+  }
+
+  renderList.replaceChildren();
 
   devsList.forEach((dev) => {
     const devItem = document.createElement("li");
     let skills = "";
     dev.experiences.forEach((exp) => {
-      skills += `\n- ${exp.tech} (${exp.experience})`;
+      skills += ` - ${exp.tech} (${exp.experience})`;
     });
+    devItem.textContent = `Nome: ${dev.name}${skills}.`;
 
-        devItem.textContent =
-        `Nome: ${dev.name}${skills}`;
-
-        renderList.appendChild(devItem);
-    });
-
-    renderArea.appendChild(renderList);
-    });
+    renderList.appendChild(devItem);
+  });
 };
+// ----
+//eventos do dom
+createFormBtn.addEventListener("click", () => {
+  createNewDev();
 
-//form
-formBtn.addEventListener("click", (ev) => {
-  ev.preventDefault();
-  const devNameInput = document.getElementById("devName").value;
-  if (devNameInput.trim() === "") {
-    alert("Digite o nome do dev para criar o form");
-  } else {
-    const newDev = {
-        name: devNameInput,
-        experiences: []
-    }
-
-    devsList.push(newDev);
-    const subtitle = document.querySelector(".subtitle");
-    subtitle.innerText = `Informações de ${devNameInput}`;
-
-    const form = document.querySelector(".devFormInfos");
-    form.hidden = false;
-    formBtn.disabled = true;
-
-    const devInformations = document.getElementById("techsDev");
-
-    document.getElementById("saveInfosBtn").addEventListener("click", (ev) => {
-      ev.preventDefault();
-      const techYearsXp = document.querySelector('input[name="xpDev"]:checked');
-
-      const newExperience = {
-        tech: devInformations.value,
-        experience: techYearsXp.value,
-      };
-      if (form.checkVisibility()) {
-        newDev.experiences.push(newExperience);
-        cleanForm();
-      } else {
-        alert("Preencha o formuláro corretamente");
-      }
-      if (!sectionDevs.querySelector("#renderDevsBtn")) {
-        createRenderDevsBtn();
-      }
-    });
+  if (currentDev) {
+    createForm(currentDev.name);
   }
+});
+
+saveDevInfoBtn.addEventListener("click", () => {
+  !currentDev ? null : saveInfosDev(currentDev);
 });
