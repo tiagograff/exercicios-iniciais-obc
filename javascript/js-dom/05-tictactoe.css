@@ -1,0 +1,207 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root{
+    --color-orange: rgb(231, 153, 6);
+    --color-green: rgb(4, 151, 4);
+    --color-yellow-green: rgb(175, 196, 22);
+    --color-win: rgb(237, 218, 8); 
+    --color-red: rgb(221, 52, 10); 
+    --color-white: rgb(240, 240, 240);
+    --color-black: rgb(44, 44, 44);
+    --color-grey: rgb(80, 80, 80);
+}
+
+body {
+    background-color: var(--color-black);
+    color: var(--color-white);
+    font-family: Ubuntu, 'Open Sans', 'Helvetica Neue', sans-serif;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;    
+    height: 100vh;
+}
+
+header {
+    margin: 35px auto;
+    width: max-content;
+}
+
+.title {
+    color: var(--color-green);
+}
+
+.playersForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    gap: 20px;
+}
+
+.playersForm label{
+    color: var(--color-orange);
+    font-weight: 600;
+}
+
+.playersForm input{
+    padding: 4px 8px;
+    color: var(--color-white);
+    background: transparent;
+    border: 1px var(--color-green) solid;
+    border-radius: 5px;
+}
+
+.playersForm input:focus-visible{
+    border: 2px var(--color-green) solid;
+}
+
+.sectionPlayers {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    margin-bottom: 20px;
+}
+
+.playerContent{
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+#createNewGameBtn, #resetBtn:not(:disabled){
+    color: var(--color-orange);
+    padding: 5px 10px;
+    background: transparent;
+    border: 2px var(--color-green) solid;
+    border-radius: 5px;
+}
+
+#createNewGameBtn:hover, #resetBtn:hover:not(:disabled), #cancelBtn:hover:not(:disabled){
+    cursor: pointer;
+    color: var(--color-white);
+    background: var(--color-orange);
+    border: 2px var(--color-green) solid;
+}
+
+#cancelBtn{
+    color: var(--color-red);
+    padding: 5px 10px;
+    background: transparent;
+    border: 2px var(--color-red) solid;
+    border-radius: 5px;
+}
+
+#resetBtn:disabled, #cancelBtn:disabled{
+    cursor: not-allowed;
+    padding: 5px 10px;
+    border: 2px var(--color-grey) solid;
+    color: var(--color-grey);
+    background: transparent;
+    border-radius: 5px;
+}
+
+/* tabela - jogo */
+
+.gameStatus {
+    margin: 0px auto;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+.statusTitle, .playerTurn{
+    font-size: 18px;
+}
+
+.statusTitle{
+    font-weight: 600;
+}
+
+.playerTurn{
+    color: var(--color-yellow-green);
+}
+
+table{
+    margin: 40px auto;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+table td {
+    border: 2px solid var(--color-yellow-green);
+}
+
+tr:first-child td {
+    border-top: none;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+td:first-child {
+    border-left: none;
+}
+
+td:last-child {
+    border-right: none;
+}
+
+.cell {
+    width: 70px;
+    height: 70px;
+    background-color: var(--color-black);
+    border: none;
+    font-size: 25px;
+}
+
+.cell:hover{
+    cursor: pointer;
+    background-color: var(--color-grey);
+    border-radius: 15px;
+}
+
+.others{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 20px;
+}
+
+.result{
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.showResult{
+    display: flex;
+    flex-direction: column;
+}
+
+.winner{
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--color-win);
+}
+
+.winner::after{
+    content: " 🎉";
+    margin-left: 5px;
+}
+
+.winner::before{
+    content: "🏆 ";
+    margin-right: 5px;
+}

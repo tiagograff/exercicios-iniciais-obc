@@ -1,47 +1,62 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tic Tac Toe JS</title>
-    <link rel="stylesheet" href="./05-tictactoe.css">
-</head>
+    <link rel="stylesheet" href="./05-tictactoe.css" />
+  </head>
 
-<body>
-    <h1 class="title" >Tic Tac Toe JS</h1>
+  <body>
+    <header>
+      <h1 class="title">Tic Tac Toe JS</h1>
+    </header>
     <form class="playersForm">
-        <label for="player01" class="players">Jogador 01:</label>
-        <input type="text" name="player01" id="player01" required>
-        <label for="player02" class="players">Jogador 02:</label>
-        <input type="text" name="player02" id="player02" required>
-        <button id="createNewGameBtn" type="button">Iniciar Partida</button>
+      <h3>Insira os nomes dos jogadores:</h3>
+      <section class="sectionPlayers">
+        <div class="playerContent">
+          <label for="player01" class="players">Jogador 01:</label>
+          <input type="text" name="player01" id="player01" required />
+        </div>
+        <div class="playerContent">
+          <label for="player02" class="players">Jogador 02:</label>
+          <input type="text" name="player02" id="player02" required />
+        </div>
+      </section>
+      <button id="createNewGameBtn" type="button">Iniciar Partida</button>
     </form>
-    <h2 class="subtitle" >Turno de </h2>
-    <p class="playerTurn">...</p>
-    <table>
-        <caption class="titleGame" >Jogo da Velha</caption>
+    <main style="display: none;">
+      <section class="gameStatus">
+        <p class="statusTitle">Turno de: </p>
+        <p class="playerTurn"></p>
+      </section>
+      <table>
         <tbody class="plataform">
-            <tr>
-                <td data-row="1" data-col="1"></td>
-                <td data-row="1" data-col="2"></td>
-                <td data-row="1" data-col="3"></td>
-            </tr>
-            <tr>
-                <td data-row="2" data-col="4"></td>
-                <td data-row="2" data-col="5"></td>
-                <td data-row="2" data-col="6"></td>
-            </tr>
-            <tr>
-                <td data-row="3" data-col="7"></td>
-                <td data-row="3" data-col="8"></td>
-                <td data-row="3" data-col="9"></td>
-            </tr>
+          <tr>
+            <td data-row="1" data-col="1"><button class="cell"></button></td>
+            <td data-row="1" data-col="2"><button class="cell"></button></td>
+            <td data-row="1" data-col="3"><button class="cell"></button></td>
+          </tr>
+          <tr>
+            <td data-row="2" data-col="4"><button class="cell"></button></td>
+            <td data-row="2" data-col="5"><button class="cell"></button></td>
+            <td data-row="2" data-col="6"><button class="cell"></button></td>
+          </tr>
+          <tr>
+            <td data-row="3" data-col="7"><button class="cell"></button></td>
+            <td data-row="3" data-col="8"><button class="cell"></button></td>
+            <td data-row="3" data-col="9"><button class="cell"></button></td>
+          </tr>
         </tbody>
-    </table>
-    <main>
+      </table>
+      <section class="others">
+        <div class="result">
+            <p class="showResult">Vencedor:<p class="winner">Tiago</p></p>
+        </div>
+        <button id="resetBtn" type="button" disabled>Começar outra Partida</button>
+        <button id="cancelBtn" type="button">Cancelar Partida</button>
+      </section>
     </main>
     <script src="./05-tictactoe.js"></script>
-</body>
-
+  </body>
 </html>
