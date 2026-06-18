@@ -16,11 +16,11 @@
       <section class="sectionPlayers">
         <div class="playerContent">
           <label for="player01" class="players">Jogador 01:</label>
-          <input type="text" name="player01" id="player01" required />
+          <input type="text" name="player01" id="player01" maxlength="10" required />
         </div>
         <div class="playerContent">
           <label for="player02" class="players">Jogador 02:</label>
-          <input type="text" name="player02" id="player02" required />
+          <input type="text" name="player02" id="player02" maxlength="10" required />
         </div>
       </section>
       <button id="createNewGameBtn" type="button">Iniciar Partida</button>
@@ -51,7 +51,7 @@
       </table>
       <section class="others">
         <div class="result">
-            <p class="showResult">Vencedor:<p class="winner">Tiago</p></p>
+            <p class="showResult">Vencedor:<p class="winner"></p></p>
         </div>
         <button id="resetBtn" type="button" disabled>Começar outra Partida</button>
         <button id="cancelBtn" type="button">Cancelar Partida</button>
