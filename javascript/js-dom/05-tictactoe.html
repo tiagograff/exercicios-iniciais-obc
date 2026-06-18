@@ -16,11 +16,13 @@
       <section class="sectionPlayers">
         <div class="playerContent">
           <label for="player01" class="players">Jogador 01:</label>
-          <input type="text" name="player01" id="player01" maxlength="10" required />
+          <input type="text" name="player01" id="player01" maxlength="10"
+            required />
         </div>
         <div class="playerContent">
           <label for="player02" class="players">Jogador 02:</label>
-          <input type="text" name="player02" id="player02" maxlength="10" required />
+          <input type="text" name="player02" id="player02" maxlength="10"
+            required />
         </div>
       </section>
       <button id="createNewGameBtn" type="button">Iniciar Partida</button>
@@ -33,27 +35,28 @@
       <table>
         <tbody class="plataform">
           <tr>
-            <td data-row="1" data-col="1"><button class="cell"></button></td>
-            <td data-row="1" data-col="2"><button class="cell"></button></td>
-            <td data-row="1" data-col="3"><button class="cell"></button></td>
+            <td><button data-row="0" data-col="0" class="cell"></button></td>
+            <td><button data-row="0" data-col="1" class="cell"></button></td>
+            <td><button data-row="0" data-col="2" class="cell"></button></td>
           </tr>
           <tr>
-            <td data-row="2" data-col="4"><button class="cell"></button></td>
-            <td data-row="2" data-col="5"><button class="cell"></button></td>
-            <td data-row="2" data-col="6"><button class="cell"></button></td>
+            <td><button data-row="1" data-col="0" class="cell"></button></td>
+            <td><button data-row="1" data-col="1" class="cell"></button></td>
+            <td><button data-row="1" data-col="2" class="cell"></button></td>
           </tr>
           <tr>
-            <td data-row="3" data-col="7"><button class="cell"></button></td>
-            <td data-row="3" data-col="8"><button class="cell"></button></td>
-            <td data-row="3" data-col="9"><button class="cell"></button></td>
+            <td><button data-row="2" data-col="0" class="cell"></button></td>
+            <td><button data-row="2" data-col="1" class="cell"></button></td>
+            <td><button data-row="2" data-col="2" class="cell"></button></td>
           </tr>
         </tbody>
       </table>
       <section class="others">
         <div class="result">
-            <p class="showResult">Vencedor:<p class="winner"></p></p>
+          <p class="showResult">Vencedor:<p class="winner"></p></p>
         </div>
-        <button id="resetBtn" type="button" disabled>Começar outra Partida</button>
+        <button id="resetBtn" type="button" disabled>Começar outra
+          Partida</button>
         <button id="cancelBtn" type="button">Cancelar Partida</button>
       </section>
     </main>
