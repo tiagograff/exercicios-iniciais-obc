@@ -19,7 +19,7 @@ body {
     background-color: var(--color-black);
     color: var(--color-white);
     font-family: Ubuntu, 'Open Sans', 'Helvetica Neue', sans-serif;
-    margin: auto;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -28,8 +28,8 @@ body {
 }
 
 header {
-    margin: 0px auto 30px auto;
     width: max-content;
+    margin: 30px auto 30px auto;
 }
 
 .title {
@@ -131,12 +131,11 @@ header {
 
 table{
     margin: 40px auto;
-    border-collapse: separate;
     border-spacing: 0;
 }
 
 table td {
-    border: 2px solid var(--color-yellow-green);
+    border: 3px solid var(--color-yellow-green);
 }
 
 tr:first-child td {
@@ -161,6 +160,8 @@ td:last-child {
     background-color: var(--color-black);
     border: none;
     font-size: 25px;
+    color: var(--color-white);
+    display: block;
 }
 
 .cell:hover{
@@ -174,7 +175,7 @@ td:last-child {
     align-items: center;
     justify-content: center;
     gap: 40px;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 .result{
@@ -204,4 +205,14 @@ td:last-child {
 .winner::before{
     content: "🏆 ";
     margin-right: 5px;
+}
+
+.activeWinPlace{
+    background-color: var(--color-green);
+    border: none;
+}
+
+.finishGame{
+    opacity: 0.6;
+    pointer-events:none;
 }

@@ -1,6 +1,7 @@
 //elementos do DOM
 const form = document.querySelector(".playersForm");
 const gamePlataform = document.querySelector("main");
+const plataform = document.querySelector('.plataform')
 const cells = document.querySelectorAll(".cell");
 const player01Input = document.getElementById("player01");
 const player02Input = document.getElementById("player02");
@@ -51,7 +52,13 @@ function cleanBoard(){
   })
   cells.forEach((cell) => {
     cell.textContent = ""
+    cell.classList.remove('activeWinPlace')
   })
+}
+
+function winPlace(){
+  board.flat()
+
 }
 
 function showGame() {
@@ -71,6 +78,7 @@ function turnChange() {
 }
 
 function resetGame(){
+    plataform.classList.remove('finishGame')
     cleanBoard()
     gameFinished = false
     divResult.style.display = 'none'
@@ -110,6 +118,14 @@ function renderTurn() {
   }
 }
 
+function paintCells(winningCells){
+  winningCells.forEach((cell) => {
+    const row = Math.floor(cell / 3)
+    const col = cell % 3
+    document.querySelector(`[data-row="${row}"][data-col="${col}"]`).classList.add('activeWinPlace')
+  })
+}
+
 function canPlayHere(row, col) {
   console.log(board[row][col])
   if (board[row][col].length === 0) {
@@ -146,9 +162,12 @@ function resultGameCheck() {
     ) {
       winner = currentTurn;
       gameFinished = true;
+      plataform.classList.add('finishGame')
+      paintCells(win)
       return;
     }
     if (!checkBoard.includes("")) {
+      plataform.classList.add('finishGame')
       winner = "Empate";
       gameFinished = true;
     }
