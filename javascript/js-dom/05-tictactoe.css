@@ -240,6 +240,17 @@ td:last-child {
     margin-right: 5px;
 }
 
+.winner.draw {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--color-win);
+}
+
+.winner.draw::before,
+.winner.draw::after {
+    content: none;
+}
+
 .activeWinPlace{
     background-color: var(--color-win);
     border: none;

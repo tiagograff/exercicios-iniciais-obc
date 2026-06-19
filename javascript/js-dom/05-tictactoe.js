@@ -93,7 +93,7 @@ function getPlayersName() {
   namePlayer02 = player02Input.value;
   if (namePlayer01.length <= 0 || namePlayer02.length <= 0) {
     alert(
-      "Os campos de nome devem estar preenchidos de 1 até no máximo 10 caracteres",
+      "Preencha os campos com no máximo 10 caracteres",
     );
     cleanForm();
     gameStarted = false;
@@ -161,6 +161,7 @@ function resultGameCheck() {
       checkBoard[a] !== ""
     ) {
       winner = currentTurn;
+      showResultOnDisplay.classList.remove('draw')
       gameFinished = true;
       plataform.classList.add('finishGame')
       paintCells(win)
@@ -168,6 +169,7 @@ function resultGameCheck() {
     }
     if (!checkBoard.includes("")) {
       plataform.classList.add('finishGame')
+      showResultOnDisplay.classList.add('draw')
       winner = "Empate";
       gameFinished = true;
     }
