@@ -7,12 +7,14 @@ const player02Input = document.getElementById("player02");
 const statusTurn = document.querySelector(".playerTurn");
 const showResultOnDisplay = document.querySelector(".winner");
 const divResult = document.querySelector(".result");
+const resetButton = document.getElementById('resetBtn')
 //variaveis
 let namePlayer01 = null;
 let namePlayer02 = null;
 let winner = null;
 let gameStarted = false;
 let gameFinished = false;
+let nextTurn = true;
 const player01Caracter = "X";
 const player02Caracter = "0";
 let currentTurn = player01Caracter;
@@ -43,6 +45,15 @@ function cleanForm() {
   player02Input.value = "";
 }
 
+function cleanBoard(){
+  board.forEach((row) => {
+    row.fill('')
+  })
+  cells.forEach((cell) => {
+    cell.textContent = ""
+  })
+}
+
 function showGame() {
   form.style.display = "none";
   gamePlataform.style.display = "block";
@@ -57,6 +68,16 @@ function turnChange() {
   currentTurn === player01Caracter
     ? (currentTurn = player02Caracter)
     : (currentTurn = player01Caracter);
+}
+
+function resetGame(){
+    cleanBoard()
+    gameFinished = false
+    divResult.style.display = 'none'
+    winner = null
+    currentTurn = player01Caracter
+    renderTurn()
+    resetButton.disabled = true
 }
 
 function getPlayersName() {
@@ -89,12 +110,27 @@ function renderTurn() {
   }
 }
 
-function makePlay(row, col) {
-  board[row][col] = currentTurn;
+function canPlayHere(row, col) {
+  console.log(board[row][col])
+  if (board[row][col].length === 0) {
+    nextTurn = true;
+    return true;
+  } else {
+    nextTurn = false;
+    return false;
+  }
 }
 
-function renderBoard(button) {
-  button.innerText = currentTurn;
+function makePlay(row, col) {
+  canPlayHere(row, col)
+    ? (board[row][col] = currentTurn)
+    : alert("Não é possível jogar neste campo!");
+}
+
+function renderBoard(currentCell) {
+  if (!gameFinished){
+    currentCell.innerText = currentTurn;
+  }
 }
 
 function resultGameCheck() {
@@ -119,27 +155,34 @@ function resultGameCheck() {
   }
 }
 
+function showWinner() {
+  if (winner === "X") {
+    showResultOnDisplay.textContent = namePlayer01;
+    divResult.style.display = "flex";
+  } else if (winner === "0") {
+    showResultOnDisplay.textContent = namePlayer02;
+    divResult.style.display = "flex";
+  } else if (winner === "Empate") {
+    showResultOnDisplay.textContent = "Empate";
+    divResult.style.display = "flex";
+  } else {
+    console.error("erro na aplicação");
+  }
+}
+
 cells.forEach((cell) => {
   cell.addEventListener("click", (event) => {
     let currentCell = event.currentTarget;
     makePlay(Number(currentCell.dataset.row), Number(currentCell.dataset.col));
-    renderBoard(currentCell);
-    resultGameCheck();
-    if (!gameFinished) {
-      turnChange();
-      renderTurn();
-    } else {
-      if (winner === "X") {
-        showResultOnDisplay.textContent = namePlayer01;
-        divResult.style.display = "flex";
-      } else if (winner === "0") {
-        showResultOnDisplay.textContent = namePlayer02;
-        divResult.style.display = "flex";
-      } else if (winner === "Empate") {
-        showResultOnDisplay.textContent = "Empate";
-        divResult.style.display = "flex";
+    if (nextTurn) {
+      renderBoard(currentCell);
+      resultGameCheck();
+      if (!gameFinished) {
+        turnChange();
+        renderTurn();
       } else {
-        console.error("erro na aplicação");
+        showWinner()
+        resetButton.disabled = false
       }
     }
   });
@@ -150,6 +193,7 @@ document.getElementById("createNewGameBtn").addEventListener("click", (ev) => {
   ev.preventDefault();
   getPlayersName();
   if (gameStarted) {
+    resetButton.disabled = true
     showGame();
     renderTurn();
   }
@@ -158,7 +202,8 @@ document.getElementById("createNewGameBtn").addEventListener("click", (ev) => {
 document.getElementById("cancelBtn").addEventListener("click", (ev) => {
   ev.preventDefault();
   if (confirm("Deseja mesmo cancelar essa partida?")) {
-    //limpar campo (plataforma)
+    resetGame()
+    gameStarted = false
     showForm();
   } else {
     alert("Retornando para partida atual");
@@ -167,5 +212,9 @@ document.getElementById("cancelBtn").addEventListener("click", (ev) => {
 
 document.getElementById("resetBtn").addEventListener("click", (ev) => {
   ev.preventDefault();
-  //verificar se a partida terminou para poder começar outra
+  if (gameFinished) {
+    resetGame()
+  } else {
+    alert('Partida não acabada e não cancelada')
+  }
 });
