@@ -5,18 +5,19 @@
 }
 
 :root{
-    --color-orange: rgb(231, 153, 6);
-    --color-green: rgb(4, 151, 4);
+    --color-orange: rgb(221, 143, 8);
+    --color-green: rgb(35, 122, 25);
+    --color-green-bg: rgb(3, 32, 3);
     --color-yellow-green: rgb(175, 196, 22);
     --color-win: rgb(237, 218, 8); 
-    --color-red: rgb(221, 52, 10); 
+    --color-red: rgb(202, 51, 14); 
     --color-white: rgb(240, 240, 240);
     --color-black: rgb(44, 44, 44);
     --color-grey: rgb(80, 80, 80);
 }
 
 body {
-    background-color: var(--color-black);
+    background-color: var(--color-green-bg);
     color: var(--color-white);
     font-family: Ubuntu, 'Open Sans', 'Helvetica Neue', sans-serif;
     margin: 0 auto;
@@ -28,12 +29,26 @@ body {
 }
 
 header {
-    width: max-content;
-    margin: 30px auto 30px auto;
+    width: 50%;
+    margin: 20px auto 40px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    border-bottom: 1px var(--color-green) solid;
+    padding-bottom: 30px;
+}
+
+header img {
+    max-width: 65px;
 }
 
 .title {
-    color: var(--color-green);
+    color: var(--color-white);
+    font-size: 3.5em;
+    min-width: max-content;
+    word-spacing: -1px;
+    letter-spacing: -3px;
 }
 
 .playersForm {
@@ -54,12 +69,13 @@ header {
     padding: 4px 8px;
     color: var(--color-white);
     background: transparent;
-    border: 1px var(--color-green) solid;
+    border: 2px var(--color-green) solid;
     border-radius: 5px;
 }
 
-.playersForm input:focus-visible{
-    border: 2px var(--color-green) solid;
+:focus-visible{
+    outline-offset:-2px;
+    outline: 2.5px solid var(--color-yellow-green);
 }
 
 .sectionPlayers {
@@ -76,32 +92,43 @@ header {
     align-items: center;
 }
 
+#createNewGameBtn{
+    margin-top: 25px;
+}
+
 #createNewGameBtn, #resetBtn:not(:disabled){
-    color: var(--color-orange);
-    padding: 5px 10px;
+    color: var(--color-white);
+    padding: 8px 12px;
     background: transparent;
     border: 2px var(--color-green) solid;
     border-radius: 5px;
 }
 
-#createNewGameBtn:hover, #resetBtn:hover:not(:disabled), #cancelBtn:hover:not(:disabled){
+#createNewGameBtn:hover, #resetBtn:hover:not(:disabled){
     cursor: pointer;
     color: var(--color-white);
     background: var(--color-orange);
-    border: 2px var(--color-green) solid;
+    border: 2px transparent solid;
 }
 
 #cancelBtn{
     color: var(--color-red);
-    padding: 5px 10px;
+    padding: 8px 12px;
     background: transparent;
     border: 2px var(--color-red) solid;
     border-radius: 5px;
 }
 
+#cancelBtn:hover:not(:disabled){
+    color: var(--color-white);
+    background: var(--color-red);
+    border: 2px transparent solid;
+    border-radius: 5px;
+}
+
 #resetBtn:disabled, #cancelBtn:disabled{
     cursor: not-allowed;
-    padding: 5px 10px;
+    padding: 8px 12px;
     border: 2px var(--color-grey) solid;
     color: var(--color-grey);
     background: transparent;
@@ -134,6 +161,12 @@ table{
     border-spacing: 0;
 }
 
+table *:focus-visible{
+    outline-offset:-2px;
+    outline: 2.5px solid var(--color-white  );
+    border: 10px;
+}
+
 table td {
     border: 3px solid var(--color-yellow-green);
 }
@@ -157,7 +190,7 @@ td:last-child {
 .cell {
     width: 70px;
     height: 70px;
-    background-color: var(--color-black);
+    background-color: var(--color-green-bg);
     border: none;
     font-size: 25px;
     color: var(--color-white);
@@ -208,7 +241,7 @@ td:last-child {
 }
 
 .activeWinPlace{
-    background-color: var(--color-green);
+    background-color: var(--color-win);
     border: none;
 }
 
