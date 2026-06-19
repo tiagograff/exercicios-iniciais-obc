@@ -6,6 +6,7 @@ const cells = document.querySelectorAll(".cell");
 const player01Input = document.getElementById("player01");
 const player02Input = document.getElementById("player02");
 const statusTurn = document.querySelector(".playerTurn");
+const resultGame = document.querySelector('.showResult')
 const showResultOnDisplay = document.querySelector(".winner");
 const divResult = document.querySelector(".result");
 const resetButton = document.getElementById('resetBtn')
@@ -84,6 +85,7 @@ function resetGame(){
     divResult.style.display = 'none'
     winner = null
     currentTurn = player01Caracter
+    resultGame.textContent = ''
     renderTurn()
     resetButton.disabled = true
 }
@@ -161,6 +163,7 @@ function resultGameCheck() {
       checkBoard[a] !== ""
     ) {
       winner = currentTurn;
+      resultGame.textContent = 'Vencedor: '
       showResultOnDisplay.classList.remove('draw')
       gameFinished = true;
       plataform.classList.add('finishGame')
@@ -171,6 +174,7 @@ function resultGameCheck() {
       plataform.classList.add('finishGame')
       showResultOnDisplay.classList.add('draw')
       winner = "Empate";
+      resultGame.textContent = 'Resultado:'
       gameFinished = true;
     }
   }
