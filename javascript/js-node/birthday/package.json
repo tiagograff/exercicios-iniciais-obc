@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "dayjs": "^1.11.21",
+    "prompt-sync": "^4.2.0"
+  },
+  "name": "birthday",
+  "version": "1.0.0",
+  "description": "exercicio",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "tiagograff",
+  "license": "ISC"
+}
